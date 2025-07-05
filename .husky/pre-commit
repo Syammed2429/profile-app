@@ -10,7 +10,7 @@ fi
 
 # Check ESLint (only errors, not warnings)
 echo "🔧 Running ESLint..."
-npx eslint "**/*.{js,jsx,ts,tsx}" --ignore-pattern ".expo/**" --ignore-pattern "**/*.d.ts" --max-warnings 0
+npx eslint . --max-warnings 0
 if [ $? -ne 0 ]; then
   echo "❌ ESLint found errors. Please fix them before committing."
   echo "💡 You can run 'npm run lint:fix' to automatically fix some issues."
