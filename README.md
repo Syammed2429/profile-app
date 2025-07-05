@@ -223,7 +223,3 @@ headerRight: () => (
 - Check the [Expo Router documentation](https://expo.github.io/router/)
 - Review [NativeWind documentation](https://www.nativewind.dev/)
 - See [React Native Reusables](https://github.com/mrzachnugent/react-native-reusables) for component usage
-
-<img src="https://github.com/mrzachnugent/react-native-reusables/assets/63797719/42c94108-38a7-498b-9c70-18640420f1bc"
-     alt="starter-base-template"
-     style="width:270px;" />
