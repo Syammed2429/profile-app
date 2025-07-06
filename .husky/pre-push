@@ -1,11 +1,8 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 echo "🔍 Running pre-push checks..."
 
 # Get current user email
 USER_EMAIL=$(git config user.email)
-ALLOWED_EMAIL="abc@gmail.com"
+ALLOWED_EMAIL="kerry.blig12@gmail.com"
 
 # Protected branches
 PROTECTED_BRANCHES=("main" "master" "develop" "test")
@@ -27,7 +24,7 @@ do
                 echo "❌ PUSH REJECTED!"
                 echo "🚫 You don't have permission to push directly to the '$BRANCH_NAME' branch."
                 echo "👤 Your email: $USER_EMAIL"
-                echo "✅ Required email: $ALLOWED_EMAIL"
+                # echo "✅ Required email: $ALLOWED_EMAIL"
                 echo ""
                 echo "📋 To contribute to this branch:"
                 echo "   1. Create a new feature branch:"
