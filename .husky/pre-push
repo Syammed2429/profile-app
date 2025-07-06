@@ -1,0 +1,47 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-push checks..."
+
+# Get current user email
+USER_EMAIL=$(git config user.email)
+ALLOWED_EMAIL="abc@gmail.com"
+
+# Protected branches
+PROTECTED_BRANCHES=("main" "master" "develop" "test")
+
+# Read the push information
+while read local_ref local_sha remote_ref remote_sha
+do
+    # Extract the branch name from the remote ref
+    if [[ $remote_ref =~ refs/heads/(.+) ]]; then
+        BRANCH_NAME="${BASH_REMATCH[1]}"
+        
+        # Check if pushing to a protected branch
+        if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${BRANCH_NAME} " ]]; then
+            echo "🛡️  Checking permissions for protected branch: $BRANCH_NAME"
+            
+            # Check if user email matches allowed email
+            if [ "$USER_EMAIL" != "$ALLOWED_EMAIL" ]; then
+                echo ""
+                echo "❌ PUSH REJECTED!"
+                echo "🚫 You don't have permission to push directly to the '$BRANCH_NAME' branch."
+                echo "👤 Your email: $USER_EMAIL"
+                echo "✅ Required email: $ALLOWED_EMAIL"
+                echo ""
+                echo "📋 To contribute to this branch:"
+                echo "   1. Create a new feature branch:"
+                echo "      git checkout -b feature/your-feature-name"
+                echo "   2. Push your feature branch:"
+                echo "      git push origin feature/your-feature-name"
+                echo "   3. Create a Pull Request to merge into '$BRANCH_NAME'"
+                echo ""
+                exit 1
+            else
+                echo "✅ Permission granted for $USER_EMAIL"
+            fi
+        fi
+    fi
+done
+
+echo "✅ All pre-push checks passed!"
