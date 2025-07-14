@@ -102,16 +102,19 @@ pnpm start
 This project automatically configures Git hooks when you run `pnpm install`. The setup includes:
 
 **Pre-commit Protection:**
+
 - TypeScript type checking (`pnpm type-check`)
 - ESLint error checking (no warnings/errors allowed)
 - Automatic rejection of commits with issues
 
 **Pre-push Protection:**
+
 - Email-based permission system for protected branches
 - Protected branches: `main`, `master`, `develop`, `test`
 - Automatic rejection of unauthorized pushes
 
 **Verification:** After installation, you can verify the hooks are working:
+
 ```bash
 # Check if hooks are installed and working
 pnpm check-hooks
@@ -122,6 +125,7 @@ git commit -m "test commit"
 ```
 
 **If hooks aren't working after cloning:**
+
 ```bash
 # Manual setup (shouldn't be needed)
 git config core.hooksPath .husky
