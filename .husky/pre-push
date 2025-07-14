@@ -2,7 +2,9 @@ echo "🔍 Running pre-push checks..."
 
 # Get current user email
 USER_EMAIL=$(git config user.email)
-ALLOWED_EMAIL="kerry.blig12@gmail.com"
+
+# Allowed emails (add more emails to this array)
+ALLOWED_EMAILS=("kerry.blig12@gmail.com" "admin@company.com" "lead@company.com")
 
 # Protected branches
 PROTECTED_BRANCHES=("main" "master" "develop" "test")
@@ -18,13 +20,13 @@ do
         if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${BRANCH_NAME} " ]]; then
             echo "🛡️  Checking permissions for protected branch: $BRANCH_NAME"
             
-            # Check if user email matches allowed email
-            if [ "$USER_EMAIL" != "$ALLOWED_EMAIL" ]; then
+            # Check if user email is in the allowed emails array
+            if [[ ! " ${ALLOWED_EMAILS[@]} " =~ " ${USER_EMAIL} " ]]; then
                 echo ""
                 echo "❌ PUSH REJECTED!"
                 echo "🚫 You don't have permission to push directly to the '$BRANCH_NAME' branch."
                 echo "👤 Your email: $USER_EMAIL"
-                # echo "✅ Required email: $ALLOWED_EMAIL"
+                echo "✅ Allowed emails: ${ALLOWED_EMAILS[*]}"
                 echo ""
                 echo "📋 To contribute to this branch:"
                 echo "   1. Create a new feature branch:"

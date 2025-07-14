@@ -10,11 +10,12 @@
     "ios": "expo start -c --ios",
     "web": "expo start -c --web",
     "clean": "rm -rf .expo node_modules",
-    "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css && git config core.hooksPath .husky/_",
+    "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css && git config core.hooksPath .husky && chmod +x .husky/*",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "type-check": "tsc --noEmit",
-    "prepare": "git config core.hooksPath .husky/_"
+    "prepare": "git config core.hooksPath .husky 2>/dev/null || true",
+    "check-hooks": "./scripts/check-husky.sh"
   },
   "dependencies": {
     "@react-navigation/native": "^7.0.0",

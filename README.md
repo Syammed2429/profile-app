@@ -84,11 +84,51 @@ Detail screens have custom headers with:
 ### Installation
 
 ```bash
-# Clone and install dependencies
+# Clone the repository
+git clone <repository-url>
+cd test-all
+
+# Install dependencies (this will automatically set up Git hooks)
 pnpm install
 
 # Start development server
 pnpm start
+```
+
+> **🔒 Important**: The `pnpm install` command automatically sets up Husky Git hooks for pre-commit and pre-push protection. This ensures code quality and prevents direct pushes to protected branches.
+
+### Git Hooks Auto-Setup
+
+This project automatically configures Git hooks when you run `pnpm install`. The setup includes:
+
+**Pre-commit Protection:**
+- TypeScript type checking (`pnpm type-check`)
+- ESLint error checking (no warnings/errors allowed)
+- Automatic rejection of commits with issues
+
+**Pre-push Protection:**
+- Email-based permission system for protected branches
+- Protected branches: `main`, `master`, `develop`, `test`
+- Automatic rejection of unauthorized pushes
+
+**Verification:** After installation, you can verify the hooks are working:
+```bash
+# Check if hooks are installed and working
+pnpm check-hooks
+
+# Test pre-commit hook (should run automatically on commit)
+git add .
+git commit -m "test commit"
+```
+
+**If hooks aren't working after cloning:**
+```bash
+# Manual setup (shouldn't be needed)
+git config core.hooksPath .husky
+chmod +x .husky/*
+
+# Or use the verification script for diagnosis
+pnpm check-hooks
 ```
 
 ### Available Scripts
@@ -104,6 +144,7 @@ pnpm web            # Run in web browser
 pnpm lint           # Run ESLint
 pnpm lint:fix       # Fix auto-fixable ESLint issues
 pnpm type-check     # Run TypeScript type checking
+pnpm check-hooks    # Verify Husky Git hooks setup
 
 # Testing & Building
 pnpm test           # Run tests (if configured)
